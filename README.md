@@ -36,6 +36,20 @@
    npm run dev
    ```
 
+### Docker Compose を使って開発環境を一括起動する
+ローカルに Node.js や PostgreSQL をインストールせずに、Docker コンテナ上で開発環境を立ち上げたい場合:
+```bash
+# コンテナのビルドと起動
+docker-compose up -d --build
+
+# Prisma の Client 生成（必要に応じて）
+docker-compose exec nodejs-devenv npx prisma generate
+
+# マイグレーション実行（必要に応じて）
+docker-compose exec nodejs-devenv npx prisma migrate dev --name init
+```
+起動後、ブラウザで http://localhost:3000 を開いてアプリケーションが動いていることを確認してください。
+
 ブラウザで http://localhost:3000 にアクセスして、アプリが起動していることを確認してください。
 
 ## その他
