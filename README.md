@@ -1,71 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js & PostgreSQL 学習用テンプレート
 
-## Getting Started
+このリポジトリは、Next.js と PostgreSQL (Prisma ORM) の組み合わせを学ぶための開発環境テンプレートです。
 
-First, run the development server:
+## 前提条件
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js >= 18.x、npm
+- Docker & Docker Compose
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## セットアップ手順
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. リポジトリをクローンする
+   ```bash
+   git clone https://github.com/your-username/your-repo-name.git
+   cd your-repo-name
+   ```
+2. 依存パッケージをインストールする
+   ```bash
+   npm install
+   ```
+3. 環境変数ファイルを作成する
+   プロジェクトルートに `.env` ファイルを作成し、以下の内容を設定します:
+   ```env
+   DATABASE_URL="postgresql://postgres:postgres@localhost:5432/nextjs_db"
+   ```
+4. Docker Compose で PostgreSQL コンテナを起動する
+   ```bash
+   docker-compose up -d
+   ```
+5. Prisma Client を生成する
+   ```bash
+   npx prisma generate
+   ```
+6. 開発サーバーを起動する
+   ```bash
+   npm run dev
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+ブラウザで http://localhost:3000 にアクセスして、アプリが起動していることを確認してください。
 
-## Docker を使った環境構築
+## その他
 
-このリポジトリは GitHub に公開されています。以下の手順でローカル環境にクローンし、Docker Desktop 上で Next.js アプリケーションを起動できます。
-
-1. **リポジトリをクローンする**
-
-```bash
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
-```
-
-2. **Docker Desktop を起動しておく**
-
-Docker Desktop が起動していることを確認してください。
-
-3. **Docker Compose でコンテナをビルド・起動する（バックグラウンド実行）**
-
-```bash
-docker-compose up -d
-```
-
-4. **ブラウザでアプリケーションを確認する**
-
-[http://localhost:3000](http://localhost:3000) にアクセスしてください。
-
-> ※ 必要に応じて`Dockerfile`や`docker-compose.yml`を編集してください。
-
-5. **コンテナの停止**
-
-開発を終了する場合は、以下のコマンドでコンテナを停止できます。
-
-```bash
-docker compose down
-```
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- マイグレーションを実行する場合:
+  ```bash
+  npx prisma migrate dev --name init
+  ```
+- アプリ内での Prisma Client の利用例:
+  ```ts
+  import { PrismaClient } from "@prisma/client";
+  const prisma = new PrismaClient();
+  ```
