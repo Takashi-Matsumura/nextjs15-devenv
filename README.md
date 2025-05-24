@@ -33,7 +33,7 @@
 4. **Docker Compose で PostgreSQL コンテナを起動する**
 
    ```bash
-   docker compose up -d   # 旧 CLI を利用する場合は docker-compose up -d
+   docker compose up -d --build
    ```
 
 5. **Prisma Client を生成する**
