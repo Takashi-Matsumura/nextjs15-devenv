@@ -1,5 +1,5 @@
 services:
-  nodejs-devenv:
+  nodejs:
     build:
       context: .
       dockerfile: Dockerfile
@@ -7,16 +7,17 @@ services:
     ports:
       - "0.0.0.0:3000:3000"
     volumes:
-      - .:/app
-      - /app/node_modules
+      - .:/app:delegated
+      - node_modules:/app/node_modules
     environment:
       - NODE_ENV=development
       - NEXT_VERSION=15.3.2
+    - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres_db
     command: sh -c "npm run dev -- --hostname 0.0.0.0"
     depends_on:
-      - db
+      - postgres
 
-  db:
+  postgres:
     image: postgres:15
     container_name: postgres-devenv
     ports:
@@ -24,15 +25,16 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=nextjs_db
+      - POSTGRES_DB=postgres_db
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
 volumes:
   postgres_data:
     name: nodejs-postgres-data
+  node_modules:
 
 networks:
   default:
-    driver: bridge # ← enable_ipv6 が不要ならこの 2 行だけでもよい
+    driver: bridge # ← enable_ipv6 が不要ならこの 2行だけでもよい
     enable_ipv6: false

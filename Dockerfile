@@ -1,4 +1,9 @@
-FROM node:18-alpine
+FROM node:18-slim
+
+# Install OpenSSL (Prisma requires OpenSSL library at runtime)
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends openssl \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
