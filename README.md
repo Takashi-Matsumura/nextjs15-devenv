@@ -27,7 +27,7 @@
    プロジェクトルートに `.env` を作成し、以下を設定します。
 
    ```env
-   DATABASE_URL="postgresql://postgres:postgres@localhost:5432/nextjs_db"
+   DATABASE_URL="postgresql://postgres:postgres@localhost:5432/postgres_db"
    ```
 
 4. **Docker Compose で PostgreSQL コンテナを起動する**
