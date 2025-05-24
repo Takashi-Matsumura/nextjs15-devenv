@@ -1,7 +1,8 @@
 /** @type {import('postcss-load-config').Config} */
 const config = {
   plugins: {
-    tailwindcss: {},
+    // Use the new PostCSS plugin package for Tailwind CSS
+    '@tailwindcss/postcss': {},
   },
 };
 
